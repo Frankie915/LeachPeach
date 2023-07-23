@@ -28,4 +28,8 @@ public interface WorkoutDao {
 
     @Query("SELECT * FROM workout_table ORDER BY id DESC")
     LiveData<List<Workout>> getAllWorkouts();
+
+    @Query("SELECT * FROM workout_table WHERE id = :id")
+    LiveData<Workout> getWorkout(int id);
+
 }

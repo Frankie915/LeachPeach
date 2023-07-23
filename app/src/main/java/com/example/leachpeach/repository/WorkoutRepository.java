@@ -57,4 +57,9 @@ public class WorkoutRepository {
             workoutDao.delete(workout);
         });
     }
+
+    public LiveData<Workout> getWorkout(int id) {
+        return workoutDao.getWorkout(id);
+    }
+
 }

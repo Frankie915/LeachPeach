@@ -1,69 +1,54 @@
 package com.example.leachpeach;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.leachpeach.model.Workout;
-import com.example.leachpeach.repository.WorkoutRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
-
-    private OnWorkoutClickListener listener;
-    private FragmentActivity activity;
-
-    public interface OnWorkoutClickListener {
-        void onWorkoutClick(Workout workout);
-    }
-
-    // List of workouts to display
     private List<Workout> workouts = new ArrayList<>();
 
-    // Constructor
-    public WorkoutAdapter(FragmentActivity activity, OnWorkoutClickListener listener) {
-        this.activity = activity;
-        this.listener = listener;
-    }
-
-    // This method creates new ViewHolder objects whenever the RecyclerView needs a new one
     @NonNull
     @Override
     public WorkoutViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_item, parent, false);
-        return new WorkoutViewHolder(view);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.workout_item, parent, false);
+        return new WorkoutViewHolder(itemView);
     }
 
-    // This method gets called by the RecyclerView to display data at a specified position in the Cursor
     @Override
     public void onBindViewHolder(@NonNull WorkoutViewHolder holder, int position) {
-        if (workouts != null && !workouts.isEmpty()) {
-            final Workout currentWorkout = workouts.get(position);
-            holder.bind(currentWorkout);
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onWorkoutClick(currentWorkout);
-                }
-            });
-        }
+        Workout currentWorkout = workouts.get(position);
+        holder.workoutName.setText(currentWorkout.getName());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WorkoutDetailFragment workoutDetailFragment = new WorkoutDetailFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("workoutId", currentWorkout.getId());
+                workoutDetailFragment.setArguments(bundle);
+                FragmentTransaction transaction = ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, workoutDetailFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
     }
 
-    // This method tells the RecyclerView how many items to display
     @Override
     public int getItemCount() {
-        if (workouts != null)
-            return workouts.size();
-        else
-            return 0;
+        return workouts.size();
     }
 
     public void setWorkouts(List<Workout> workouts) {
@@ -71,38 +56,12 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         notifyDataSetChanged();
     }
 
-    // ViewHolder class
     class WorkoutViewHolder extends RecyclerView.ViewHolder {
+        private TextView workoutName;
 
-        // UI elements
-        TextView workoutNameTextView;
-        Button editWorkoutButton;
-        Button deleteWorkoutButton;
-
-        // Constructor
         public WorkoutViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            // Initialize the UI elements
-            workoutNameTextView = itemView.findViewById(R.id.workoutNameTextView);
-            editWorkoutButton = itemView.findViewById(R.id.editWorkoutButton);
-            deleteWorkoutButton = itemView.findViewById(R.id.deleteWorkoutButton);
-        }
-
-        void bind(final Workout workout) {
-            // Update UI elements with data
-            workoutNameTextView.setText(workout.getName());
-            editWorkoutButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Replace the current fragment with an EditWorkoutFragment
-                    EditWorkoutFragment editFragment = EditWorkoutFragment.newInstance(workout);
-                    FragmentTransaction transaction = activity.getSupportFragmentManager().beginTransaction();
-                    transaction.replace(R.id.fragment_container, editFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                }
-            });
+            workoutName = itemView.findViewById(R.id.text_view_workout_name);
         }
     }
 }

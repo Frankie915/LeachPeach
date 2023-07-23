@@ -1,13 +1,18 @@
 package com.example.leachpeach;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,51 +20,48 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.viewmodel.WorkoutViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CreateWorkoutFragment extends Fragment {
-
-    private EditText exerciseNameEditText, exerciseWeightEditText, exerciseSetsEditText, exerciseRepsEditText;
-
-    private EditText workoutNameEditText;
-    private RecyclerView exerciseRecyclerView;
-    private FloatingActionButton saveWorkoutButton; // This remains as FloatingActionButton
-    private Button addExerciseButton; // This changes to Button
     private WorkoutViewModel workoutViewModel;
-    private ExerciseAdapter exerciseAdapter;
 
+    private EditText editTextWorkoutName;
+    private Button buttonAddExercise;
+    private Button buttonSaveWorkout;
+    private ExerciseAdapter adapter;
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_workout, container, false);
+        workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
+        editTextWorkoutName = view.findViewById(R.id.edit_text_workout_name);
+        buttonAddExercise = view.findViewById(R.id.button_add_exercise);
+        buttonSaveWorkout = view.findViewById(R.id.button_save_workout);
 
-        exerciseNameEditText = view.findViewById(R.id.exerciseNameEditText);
-        exerciseWeightEditText = view.findViewById(R.id.exerciseWeightEditText);
-        exerciseSetsEditText = view.findViewById(R.id.exerciseSetsEditText);
-        exerciseRepsEditText = view.findViewById(R.id.exerciseRepsEditText);
-        exerciseRecyclerView = view.findViewById(R.id.exerciseRecyclerView);
-        saveWorkoutButton = view.findViewById(R.id.saveWorkoutButton);
-        addExerciseButton = view.findViewById(R.id.addExerciseButton); // No more ClassCastException here
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_exercises);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
 
-        workoutViewModel = new ViewModelProvider(this, new MyViewModelFactory(getActivity().getApplication())).get(WorkoutViewModel.class);
+        adapter = new ExerciseAdapter();
+        recyclerView.setAdapter(adapter);
 
-        exerciseRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        exerciseAdapter = new ExerciseAdapter();
-        exerciseRecyclerView.setAdapter(exerciseAdapter);
-
-        saveWorkoutButton.setOnClickListener(new View.OnClickListener() {
+        buttonAddExercise.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveWorkout();
+                adapter.getExercises().add(new Exercise("", 0, 0, 0));  // add a new empty exercise
+                adapter.notifyDataSetChanged();
             }
         });
 
-        addExerciseButton.setOnClickListener(new View.OnClickListener() {
+        buttonSaveWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addExercise();
+                // retrieve data from the EditTexts and save the workout
+                saveWorkout();
             }
         });
 
@@ -67,51 +69,23 @@ public class CreateWorkoutFragment extends Fragment {
     }
 
     private void saveWorkout() {
-        // logic to save the workout to the database
-        // Extract workout name from EditText
-        String workoutName = workoutNameEditText.getText().toString().trim();
+        String workoutName = editTextWorkoutName.getText().toString().trim();
+        List<Exercise> exercises = adapter.getExercises();
 
-        // Create a new Workout object
-        Workout workout = new Workout(workoutName, new Date(), exerciseAdapter.getExercises());
-
-        // Use ViewModel to insert workout
-        workoutViewModel.insertWorkout(workout);
-
-        // Replace this fragment with MainFragment (or whatever is appropriate in your case)
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new MainFragment())
-                .commit();
-    }
-
-    private void addExercise() {
-        // Read the input values
-        String name = exerciseNameEditText.getText().toString().trim();
-        String weightText = exerciseWeightEditText.getText().toString().trim();
-        String setsText = exerciseSetsEditText.getText().toString().trim();
-        String repsText = exerciseRepsEditText.getText().toString().trim();
-
-        // Check if any field is empty
-        if (name.isEmpty() || weightText.isEmpty() || setsText.isEmpty() || repsText.isEmpty()) {
-            // Here you can display a message to the user that all fields must be filled
+        if (TextUtils.isEmpty(workoutName) || exercises.isEmpty()) {
+            Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // If fields are not empty, continue with parsing and adding the exercise
-        int weight = Integer.parseInt(weightText);
-        int sets = Integer.parseInt(setsText);
-        int reps = Integer.parseInt(repsText);
+        Workout workout = new Workout(workoutName, new Date(), (ArrayList<Exercise>) exercises);
+        workoutViewModel.insertWorkout(workout);
 
-        // Create a new Exercise object with the input values
-        Exercise exercise = new Exercise(name, weight, sets, reps);
+        MainFragment mainFragment = new MainFragment();
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, mainFragment);
+        transaction.addToBackStack(null);  // this allows the user to navigate back to CreateWorkoutFragment
+        transaction.commit();
 
-        // Add the exercise to the RecyclerView
-        exerciseAdapter.addExercise(exercise);
-
-        // Clear the input fields
-        exerciseNameEditText.setText("");
-        exerciseWeightEditText.setText("");
-        exerciseSetsEditText.setText("");
-        exerciseRepsEditText.setText("");
     }
-
 }
+

@@ -11,6 +11,23 @@ public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setReps(int reps) {
+        this.reps = reps;
+    }
+
+    public void setSets(int sets) {
+        this.sets = sets;
+    }
+
     private String name;
     private int weight;
     private int reps;

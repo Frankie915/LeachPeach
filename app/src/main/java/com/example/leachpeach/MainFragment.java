@@ -1,83 +1,68 @@
 package com.example.leachpeach;
 
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.example.leachpeach.model.Exercise;
-import com.example.leachpeach.model.Workout;
-import com.example.leachpeach.viewmodel.WorkoutViewModel;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Date;
+import com.example.leachpeach.model.Workout;
+import com.example.leachpeach.viewmodel.WorkoutViewModel;
+
 import java.util.List;
 
-public class MainFragment extends Fragment implements WorkoutAdapter.OnWorkoutClickListener {
+public class MainFragment extends Fragment {
 
-    private RecyclerView workoutRecyclerView;
     private WorkoutViewModel workoutViewModel;
-    private FloatingActionButton fabInsertWorkout;
+    private WorkoutAdapter workoutAdapter;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        // Initialize the RecyclerView
-        workoutRecyclerView = view.findViewById(R.id.workoutRecyclerView);
+        // Initialize ViewModel and Adapter
+        workoutViewModel = new ViewModelProvider(requireActivity(), new MyViewModelFactory(requireActivity().getApplication())).get(WorkoutViewModel.class);
+        workoutAdapter = new WorkoutAdapter();
 
-        // Set the Layout Manager
-        workoutRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        // Setup RecyclerView
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setAdapter(workoutAdapter);
 
-        // Initialize the WorkoutAdapter
-        final WorkoutAdapter workoutAdapter = new WorkoutAdapter(getActivity(), this);
-        workoutRecyclerView.setAdapter(workoutAdapter);
-
-        workoutViewModel = new ViewModelProvider(this, new MyViewModelFactory(getActivity().getApplication())).get(WorkoutViewModel.class);
+        // Observe workouts LiveData
         workoutViewModel.getAllWorkouts().observe(getViewLifecycleOwner(), new Observer<List<Workout>>() {
             @Override
             public void onChanged(List<Workout> workouts) {
-                // update RecyclerView
                 workoutAdapter.setWorkouts(workouts);
             }
         });
 
-        // Initialize FloatingActionButton and set its click listener
-        fabInsertWorkout = view.findViewById(R.id.fab_insert_workout);
-        fabInsertWorkout.setOnClickListener(new View.OnClickListener() {
+        // Handle FloatingActionButton click
+        FloatingActionButton addWorkoutButton = view.findViewById(R.id.add_workout_button);
+        addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // Replace this fragment with the CreateWorkoutFragment
-                CreateWorkoutFragment createFragment = new CreateWorkoutFragment();
+            public void onClick(View v) {
+                CreateWorkoutFragment createWorkoutFragment = new CreateWorkoutFragment();
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, createFragment);
-                transaction.addToBackStack(null);
+                transaction.replace(R.id.fragment_container, createWorkoutFragment);
+                transaction.addToBackStack(null);  // if you want to allow 'back' to the MainFragment
                 transaction.commit();
             }
         });
-
-        return view;
-    }
-
-    @Override
-    public void onWorkoutClick(Workout workout) {
-        // When a workout item is clicked, replace this fragment with a WorkoutDetailFragment
-        Log.d("MainFragment", "Workout clicked: " + workout.getName());
-        WorkoutDetailFragment detailFragment = WorkoutDetailFragment.newInstance(workout);
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, detailFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 }
-

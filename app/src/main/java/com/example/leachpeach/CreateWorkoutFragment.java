@@ -29,7 +29,11 @@ public class CreateWorkoutFragment extends Fragment {
     private WorkoutViewModel workoutViewModel;
 
     private EditText editTextWorkoutName;
-    private Button buttonAddExercise;
+    private EditText newExerciseName;
+    private EditText newExerciseWeight;
+    private EditText newExerciseSets;
+    private EditText newExerciseReps;
+    private Button addExerciseButton;
     private Button buttonSaveWorkout;
     private ExerciseAdapter adapter;
 
@@ -39,7 +43,11 @@ public class CreateWorkoutFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_workout, container, false);
         workoutViewModel = new ViewModelProvider(this).get(WorkoutViewModel.class);
         editTextWorkoutName = view.findViewById(R.id.edit_text_workout_name);
-        buttonAddExercise = view.findViewById(R.id.button_add_exercise);
+        newExerciseName = view.findViewById(R.id.new_exercise_name);
+        newExerciseWeight = view.findViewById(R.id.new_exercise_weight);
+        newExerciseSets = view.findViewById(R.id.new_exercise_sets);
+        newExerciseReps = view.findViewById(R.id.new_exercise_reps);
+        addExerciseButton = view.findViewById(R.id.button_add_exercise);
         buttonSaveWorkout = view.findViewById(R.id.button_save_workout);
 
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view_exercises);
@@ -49,11 +57,10 @@ public class CreateWorkoutFragment extends Fragment {
         adapter = new ExerciseAdapter();
         recyclerView.setAdapter(adapter);
 
-        buttonAddExercise.setOnClickListener(new View.OnClickListener() {
+        addExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                adapter.getExercises().add(new Exercise("", 0, 0, 0));  // add a new empty exercise
-                adapter.notifyDataSetChanged();
+                addExercise();
             }
         });
 
@@ -66,6 +73,31 @@ public class CreateWorkoutFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void addExercise() {
+        String name = newExerciseName.getText().toString().trim();
+        String weightStr = newExerciseWeight.getText().toString().trim();
+        String setsStr = newExerciseSets.getText().toString().trim();
+        String repsStr = newExerciseReps.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(weightStr) || TextUtils.isEmpty(setsStr) || TextUtils.isEmpty(repsStr)) {
+            Toast.makeText(getActivity(), "Please complete all fields for exercise", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int weight = Integer.parseInt(weightStr);
+        int sets = Integer.parseInt(setsStr);
+        int reps = Integer.parseInt(repsStr);
+
+        Exercise exercise = new Exercise(name, weight, sets, reps);
+        adapter.getExercises().add(exercise);
+        adapter.notifyDataSetChanged();
+
+        newExerciseName.setText("");
+        newExerciseWeight.setText("");
+        newExerciseSets.setText("");
+        newExerciseReps.setText("");
     }
 
     private void saveWorkout() {
@@ -85,7 +117,5 @@ public class CreateWorkoutFragment extends Fragment {
         transaction.replace(R.id.fragment_container, mainFragment);
         transaction.addToBackStack(null);  // this allows the user to navigate back to CreateWorkoutFragment
         transaction.commit();
-
     }
 }
-

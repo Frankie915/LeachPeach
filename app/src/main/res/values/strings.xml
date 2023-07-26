@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">LeachPeach</string>
+    <string name="insert_new_workout" />
+    <string name="save_workout">save workout</string>
+    <string name="add_workout">add workout</string>
+    <string name="delete_workout">Delete Workout</string>
 </resources>

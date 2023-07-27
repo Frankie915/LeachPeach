@@ -54,7 +54,6 @@ public class MainFragment extends Fragment {
 
         // Handle FloatingActionButton click
         FloatingActionButton addWorkoutButton = view.findViewById(R.id.add_workout_button);
-        addWorkoutButton.setBackgroundColor(getResources().getColor(R.color.leaf_green));
         addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

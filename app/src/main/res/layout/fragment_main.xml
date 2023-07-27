@@ -13,14 +13,17 @@
         android:text="Workouts"
         android:textSize="24sp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/add_workout_button"
-        android:layout_below="@id/workouts_header"/>
+        android:layout_below="@id/workouts_header"
+         />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_workout_button"
@@ -39,7 +42,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/background_peach"
-
+        android:background="@color/peach_int1"
+        app:itemRippleColor="@color/peach_int2"
+        app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
         app:menu="@menu/bottom_nav_menu" />
 </RelativeLayout>

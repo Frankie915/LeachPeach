@@ -30,13 +30,16 @@
         android:layout_alignParentEnd="true"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_workout"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@drawable/add_icon"
+        android:backgroundTint="@color/background_green"/>
 
+    <!-- Fix th hover over color -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
+        android:background="@color/background_peach"
+
         app:menu="@menu/bottom_nav_menu" />
 </RelativeLayout>

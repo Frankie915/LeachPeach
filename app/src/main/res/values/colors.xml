@@ -4,4 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="peach">#FF8590</color>
     <color name="leaf_green">#88D963</color>
+    <color name="background_peach">#F7D6CB</color>
+    <color name="background_green">#BFC</color>
 </resources>

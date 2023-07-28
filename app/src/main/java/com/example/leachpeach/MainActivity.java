@@ -38,6 +38,10 @@ public class MainActivity extends AppCompatActivity {
         // 1. Nav bar is linking to the wrong fragments
         // 2. Nav bar is not switching
         // 3. Middle item doesn't hover at all
+        // 4. Fragments take up the whole screen, goes past the bar
+        //        - For example, the little plus button in MainFragment ends up behind the navigation bar
+        //          instead of above the bar, so it's unclickable
+        //        - The fragment should end at the top of the navigation bar
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
@@ -45,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (navHostFragment != null) {
             NavController navController = navHostFragment.getNavController();
+            //The set up with action bar function just nukes the app cuz theres no action bar
             NavigationUI.setupWithNavController(navView, navController);
         }
     }

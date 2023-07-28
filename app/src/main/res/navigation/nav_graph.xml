@@ -3,23 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_game">
+    app:startDestination="@+id/navigation_main">
+    <!-- Not the problem -->
 
     <fragment
-        android:id="@+id/navigation_createworkout"
-        android:name="com.example.leachpeach.CreateWorkoutFragment"
-        android:label="test1"
-        tools:layout="@layout/fragment_create_workout" />
+        android:id="@+id/navigation_exercises"
+        android:name="com.example.leachpeach.ExerciseFragment"
+        android:label="@string/my_exercises"
+        tools:layout="@layout/fragment_exercises" />
 
     <fragment
         android:id="@+id/navigation_main"
         android:name="com.example.leachpeach.MainFragment"
-        android:label="test2"
+        android:label="@string/my_workouts"
         tools:layout="@layout/fragment_main" />
 
     <fragment
-        android:id="@+id/navigation_workoutdetail"
-        android:name="com.example.leachpeach.WorkoutDetailFragment"
+        android:id="@+id/navigation_settings"
+        android:name="com.example.leachpeach.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/workout_detail_fragment" />
+        tools:layout="@layout/fragment_settings" />
+
 </navigation>

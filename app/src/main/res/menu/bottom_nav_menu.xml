@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Not the problem -->
     <item
-        android:id="@+id/navigation_game"
+        android:id="@+id/navigation_exercises"
         android:icon="@drawable/mountain"
         android:title="@string/my_exercises" />
     <item
-        android:id="@+id/navigation_color"
+        android:id="@+id/navigation_workouts"
         android:icon="@drawable/peach_icon"
         android:title="@string/my_workouts" />
     <item
-        android:id="@+id/navigation_help"
+        android:id="@+id/navigation_settings"
         android:icon="@drawable/settings_gear"
         android:title="@string/settings" />
 </menu>

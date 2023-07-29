@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="gray">#D0D0D0</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="peach_pink">#FF8590</color>
+    <color name="leaf_green">#88D963</color>
+    <color name="background_green">#BFC</color>
+    <color name="peach_int5">#EF6351</color>
+    <color name="peach_int4">#F38375</color>
+    <color name="peach_int3">#F7A399</color>
+    <color name="peach_int2">#FDC5B5</color>
+    <color name="peach_int1">#FFE3E0</color>
+    <color name="green_int5">#2EB62C</color>
+    <color name="green_int4">#57C84D</color>
+    <color name="green_int3">#83D475</color>
+    <color name="green_int2">#ABE098</color>
+    <color name="green_int1">#C5E8B7</color>
+
 </resources>

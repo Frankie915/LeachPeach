@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.viewmodel;
 
 import android.app.Application;
 

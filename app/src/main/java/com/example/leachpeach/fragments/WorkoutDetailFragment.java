@@ -146,7 +146,5 @@ public class WorkoutDetailFragment extends Fragment {
         newExerciseSets.setText("");
         newExerciseReps.setText("");
     }
-
-
 }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 
+import com.example.leachpeach.fragments.ExerciseFragment;
 import com.example.leachpeach.fragments.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new MainFragment())
+                    .replace(R.id.fragment_container, new ExerciseFragment())
                     .commit();
         }
     }

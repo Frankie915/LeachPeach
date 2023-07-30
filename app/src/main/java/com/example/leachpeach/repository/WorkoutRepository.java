@@ -18,16 +18,19 @@ public class WorkoutRepository {
     private ExerciseDao exerciseDao;
     private LiveData<List<Workout>> allWorkouts;
 
+    private LiveData<List<Exercise>> allExercises;
     public WorkoutRepository(WorkoutDatabase db) {
         workoutDao = db.workoutDao();
         exerciseDao = db.exerciseDao();
         allWorkouts = workoutDao.getAllWorkouts();
+        allExercises = exerciseDao.getAllExercises();
     }
 
 
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;
     }
+    public LiveData<List<Exercise>> getAllExercises() { return allExercises; }
 
     public void insert(Workout workout) {
         WorkoutDatabase.databaseWriteExecutor.execute(() -> {
@@ -62,4 +65,5 @@ public class WorkoutRepository {
         return workoutDao.getWorkout(id);
     }
 
+    public LiveData<Exercise> getExercise(int id) { return exerciseDao.getExercise(id); }
 }

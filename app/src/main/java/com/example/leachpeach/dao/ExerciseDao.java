@@ -31,4 +31,7 @@ public interface ExerciseDao {
 
     @Query("SELECT * FROM exercise_table WHERE workout_id = :workoutId")
     LiveData<List<Exercise>> getExercisesOfWorkout(long workoutId);
+
+    @Query("SELECT * FROM exercise_table WHERE id = :id")
+    LiveData<Exercise> getExercise(int id);
 }

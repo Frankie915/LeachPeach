@@ -16,7 +16,12 @@ public class MyViewModelFactory implements ViewModelProvider.Factory {
 
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
-        return (T) new WorkoutViewModel(mApplication);
+        if (modelClass.isAssignableFrom(WorkoutViewModel.class)) {
+            return (T) new WorkoutViewModel(mApplication);
+        } else if (modelClass.isAssignableFrom(ExerciseViewModel.class)) {
+            return (T) new ExerciseViewModel(mApplication);
+        }
+        throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }
 }
 

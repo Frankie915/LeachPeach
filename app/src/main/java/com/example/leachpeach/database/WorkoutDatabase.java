@@ -19,7 +19,7 @@ import com.example.leachpeach.util.DateConverter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Workout.class, Exercise.class}, version = 2)
+@Database(entities = {Workout.class, Exercise.class}, version = 4)
 @TypeConverters({DataConverter.class, DateConverter.class})
 public abstract class WorkoutDatabase extends RoomDatabase {
 
@@ -27,9 +27,7 @@ public abstract class WorkoutDatabase extends RoomDatabase {
 
     // Executor service with a fixed thread pool that you will use to run database operations
     // asynchronously on a background thread.
-    private static final int NUMBER_OF_THREADS = 4;
-    public static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
 
     public abstract WorkoutDao workoutDao();
 
@@ -40,7 +38,7 @@ public abstract class WorkoutDatabase extends RoomDatabase {
             synchronized (WorkoutDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    WorkoutDatabase.class, "WorkoutDatabase.db")
+                                    WorkoutDatabase.class, "WorkoutDatabase2.db")
                             .build();
                 }
             }

@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     public void setName(String name) {
         this.name = name;
@@ -43,11 +43,11 @@ public class Exercise implements Serializable {
         this.sets = sets;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

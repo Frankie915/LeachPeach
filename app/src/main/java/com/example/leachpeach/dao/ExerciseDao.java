@@ -30,6 +30,9 @@ public interface ExerciseDao {
     @Query("SELECT * FROM exercise_table ORDER BY id DESC")
     LiveData<List<Exercise>> getAllExercises();
 
+    @Query("SELECT * FROM exercise_table WHERE id = :workoutId ORDER BY id")
+    LiveData<List<Exercise>> getExercises(long workoutId);
+
     @Query("SELECT * FROM exercise_table WHERE workout_id = :workoutId")
     LiveData<List<Exercise>> getExercisesOfWorkout(long workoutId);
 }

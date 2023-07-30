@@ -1,8 +1,13 @@
 package com.example.leachpeach.repository;
 
 import android.app.Application;
+import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
+import androidx.room.Room;
+import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.leachpeach.dao.ExerciseDao;
 import com.example.leachpeach.dao.WorkoutDao;
@@ -11,17 +16,52 @@ import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WorkoutRepository {
 
+    private static final String DATABASE_NAME = "WorkoutDatabase2.db";
     private WorkoutDao workoutDao;
     private ExerciseDao exerciseDao;
+
+    private static WorkoutRepository mWorkoutRepo;
     private LiveData<List<Workout>> allWorkouts;
 
+    private static final int NUMBER_OF_THREADS = 4;
+    public static final ExecutorService databaseWriteExecutor =
+            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+/*
     public WorkoutRepository(WorkoutDatabase db) {
         workoutDao = db.workoutDao();
         exerciseDao = db.exerciseDao();
         allWorkouts = workoutDao.getAllWorkouts();
+    }
+*/
+    private WorkoutRepository(Context context) {
+
+        RoomDatabase.Callback databaseCallback = new RoomDatabase.Callback() {
+            @Override
+            public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                super.onCreate(db);
+
+            }
+        };
+
+        WorkoutDatabase database = Room.databaseBuilder(context, WorkoutDatabase.class, DATABASE_NAME)
+                .addCallback(databaseCallback)
+                .build();
+
+        exerciseDao = database.exerciseDao();
+        workoutDao = database.workoutDao();
+        allWorkouts = workoutDao.getAllWorkouts();
+    }
+
+    public static WorkoutRepository getInstance(Context context) {
+        if (mWorkoutRepo == null) {
+            mWorkoutRepo = new WorkoutRepository(context);
+        }
+        return mWorkoutRepo;
     }
 
 
@@ -30,7 +70,7 @@ public class WorkoutRepository {
     }
 
     public void insert(Workout workout) {
-        WorkoutDatabase.databaseWriteExecutor.execute(() -> {
+        databaseWriteExecutor.execute(() -> {
             long workoutId = workoutDao.insert(workout);
             for (Exercise exercise : workout.getExercises()) {
                 exercise.setWorkoutId(workoutId);
@@ -40,7 +80,7 @@ public class WorkoutRepository {
     }
 
     public void update(Workout workout) {
-        WorkoutDatabase.databaseWriteExecutor.execute(() -> {
+        databaseWriteExecutor.execute(() -> {
             workoutDao.update(workout);
             for (Exercise exercise : workout.getExercises()) {
                 exercise.setWorkoutId(workout.getId());
@@ -48,9 +88,18 @@ public class WorkoutRepository {
             }
         });
     }
+    public void addExercise(Exercise exercise) {
+        databaseWriteExecutor.execute(() -> {
+            long exerciseId = exerciseDao.insert(exercise);
+            exercise.setId(exerciseId);
+        });
+    }
 
+    public void deleteExercise(Exercise exercise) {
+        exerciseDao.delete(exercise);
+    }
     public void delete(Workout workout) {
-        WorkoutDatabase.databaseWriteExecutor.execute(() -> {
+        databaseWriteExecutor.execute(() -> {
             for (Exercise exercise : workout.getExercises()) {
                 exerciseDao.delete(exercise);
             }
@@ -60,6 +109,10 @@ public class WorkoutRepository {
 
     public LiveData<Workout> getWorkout(int id) {
         return workoutDao.getWorkout(id);
+    }
+
+    public LiveData<List<Exercise>> getExercises(long workoutId) {
+        return exerciseDao.getExercises(workoutId);
     }
 
 }

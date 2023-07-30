@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
+import com.example.leachpeach.repository.WorkoutRepository;
 import com.example.leachpeach.viewmodel.WorkoutViewModel;
 
 import java.util.ArrayList;
@@ -104,14 +105,15 @@ public class CreateWorkoutFragment extends Fragment {
         String workoutName = editTextWorkoutName.getText().toString().trim();
         List<Exercise> exercises = adapter.getExercises();
 
+
         if (TextUtils.isEmpty(workoutName) || exercises.isEmpty()) {
             Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Workout workout = new Workout(workoutName, new Date(), (ArrayList<Exercise>) exercises);
-        workoutViewModel.insertWorkout(workout);
 
+        workoutViewModel.insertWorkout(workout);
         MainFragment mainFragment = new MainFragment();
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, mainFragment);

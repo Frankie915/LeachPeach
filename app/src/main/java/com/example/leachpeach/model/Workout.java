@@ -1,5 +1,6 @@
 package com.example.leachpeach.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -46,5 +47,11 @@ public class Workout implements Serializable {
 
     public ArrayList<Exercise> getExercises() {
         return exercises;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return name;
     }
 }

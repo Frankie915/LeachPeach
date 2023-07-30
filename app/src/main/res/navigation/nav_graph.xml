@@ -22,7 +22,13 @@
         android:id="@+id/createWorkoutFragment"
         android:name="com.example.leachpeach.fragments.CreateWorkoutFragment"
         android:label="create_workout_fragment"
-        tools:layout="@layout/fragment_create_workout" />
+        tools:layout="@layout/fragment_create_workout" >
+
+        <action
+            android:id="@+id/action_createWorkoutFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/workoutDetailFragment"
@@ -34,6 +40,12 @@
             android:name="workoutId"
             app:argType="integer" />
     </fragment>
+
+    <fragment
+        android:id="@+id/progressFragment"
+        android:name="com.example.leachpeach.fragments.ProgressFragment"
+        android:label="progress_fragment"
+        tools:layout="@layout/fragment_progress" />
 
     <fragment
         android:id="@+id/settingsFragment"

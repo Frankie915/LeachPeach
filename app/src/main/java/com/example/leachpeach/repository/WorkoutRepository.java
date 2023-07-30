@@ -9,21 +9,26 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.leachpeach.dao.CompletionDao;
 import com.example.leachpeach.dao.ExerciseDao;
 import com.example.leachpeach.dao.WorkoutDao;
 import com.example.leachpeach.database.WorkoutDatabase;
+import com.example.leachpeach.model.Completion;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WorkoutRepository {
 
-    private static final String DATABASE_NAME = "WorkoutDatabase1.db";
+    private static final String DATABASE_NAME = "WorkoutDatabase.db";
     private WorkoutDao workoutDao;
     private ExerciseDao exerciseDao;
+
+    private CompletionDao completionDao;
 
     private static WorkoutRepository mWorkoutRepo;
     private LiveData<List<Workout>> allWorkouts;
@@ -54,6 +59,7 @@ public class WorkoutRepository {
 
         exerciseDao = database.exerciseDao();
         workoutDao = database.workoutDao();
+        completionDao = database.completionDao();
         allWorkouts = workoutDao.getAllWorkouts();
     }
 
@@ -113,6 +119,20 @@ public class WorkoutRepository {
 
     public LiveData<List<Exercise>> getExercises(long workoutId) {
         return exerciseDao.getExercises(workoutId);
+    }
+
+    public void insertCompletion(Completion completion) {
+        databaseWriteExecutor.execute(() -> {
+            completionDao.insert(completion);
+        });
+    }
+
+    public LiveData<Completion> getCompletion(Date date) {
+        return completionDao.getCompletion(date);
+    }
+
+    public LiveData<List<Completion>> getAllCompletions() {
+        return completionDao.getAllCompletions();
     }
 
 }

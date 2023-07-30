@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -107,19 +108,16 @@ public class CreateWorkoutFragment extends Fragment {
         String workoutName = editTextWorkoutName.getText().toString().trim();
         List<Exercise> exercises = adapter.getExercises();
 
-
         if (TextUtils.isEmpty(workoutName) || exercises.isEmpty()) {
             Toast.makeText(getActivity(), "Please complete all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
         Workout workout = new Workout(workoutName, new Date(), (ArrayList<Exercise>) exercises);
-
         workoutViewModel.insertWorkout(workout);
-        MainFragment mainFragment = new MainFragment();
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, mainFragment);
-        transaction.addToBackStack(null);  // this allows the user to navigate back to CreateWorkoutFragment
-        transaction.commit();
+
+        // Assuming your action's id is action_createWorkoutFragment_to_mainFragment
+        Navigation.findNavController(getView()).navigate(R.id.action_createWorkoutFragment_to_mainFragment);
     }
+
 }

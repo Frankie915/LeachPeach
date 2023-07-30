@@ -9,8 +9,10 @@ import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.leachpeach.dao.CompletionDao;
 import com.example.leachpeach.dao.ExerciseDao;
 import com.example.leachpeach.dao.WorkoutDao;
+import com.example.leachpeach.model.Completion;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.util.DataConverter;
@@ -19,7 +21,7 @@ import com.example.leachpeach.util.DateConverter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Workout.class, Exercise.class}, version = 2)
+@Database(entities = {Workout.class, Exercise.class, Completion.class}, version = 4)
 @TypeConverters({DataConverter.class, DateConverter.class})
 public abstract class WorkoutDatabase extends RoomDatabase {
 
@@ -33,12 +35,15 @@ public abstract class WorkoutDatabase extends RoomDatabase {
 
     public abstract ExerciseDao exerciseDao();
 
+    public abstract CompletionDao completionDao();
+
     public static WorkoutDatabase getInstance(Context context) {
         if (INSTANCE == null) {
             synchronized (WorkoutDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    WorkoutDatabase.class, "WorkoutDatabase3.db")
+                                    WorkoutDatabase.class, "WorkoutDatabase.db")
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

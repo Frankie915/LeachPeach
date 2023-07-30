@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class ExerciseDetailAdapter extends RecyclerView.Adapter<ExerciseDetailAd
         notifyDataSetChanged();
     }
 
-    class ExerciseDetailHolder extends RecyclerView.ViewHolder {
+    public class ExerciseDetailHolder extends RecyclerView.ViewHolder {
         public EditText editTextName;
         public EditText editTextWeight;
         public EditText editTextSets;

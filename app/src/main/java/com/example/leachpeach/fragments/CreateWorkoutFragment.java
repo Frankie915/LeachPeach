@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.fragments;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.leachpeach.adapters.ExerciseAdapter;
+import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.repository.WorkoutRepository;

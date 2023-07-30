@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +12,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.leachpeach.viewmodel.MyViewModelFactory;
+import com.example.leachpeach.R;
+import com.example.leachpeach.adapters.WorkoutAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import com.example.leachpeach.model.Workout;

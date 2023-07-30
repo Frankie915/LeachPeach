@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,6 +17,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.leachpeach.adapters.ExerciseDetailAdapter;
+import com.example.leachpeach.viewmodel.MyViewModelFactory;
+import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.viewmodel.ExerciseViewModel;

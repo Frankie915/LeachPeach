@@ -1,4 +1,4 @@
-package com.example.leachpeach;
+package com.example.leachpeach.adapters;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.leachpeach.R;
+import com.example.leachpeach.fragments.WorkoutDetailFragment;
 import com.example.leachpeach.model.Workout;
 
 import java.util.ArrayList;

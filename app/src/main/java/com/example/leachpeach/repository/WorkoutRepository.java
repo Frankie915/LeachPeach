@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
 
 public class WorkoutRepository {
 
-    private static final String DATABASE_NAME = "WorkoutDatabase.db";
+    private static final String DATABASE_NAME = "WorkoutDatabase1.db";
     private WorkoutDao workoutDao;
     private ExerciseDao exerciseDao;
 

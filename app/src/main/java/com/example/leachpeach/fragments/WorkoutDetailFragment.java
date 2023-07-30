@@ -24,6 +24,8 @@ import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.viewmodel.ExerciseViewModel;
 import com.example.leachpeach.viewmodel.WorkoutViewModel;
+import androidx.navigation.Navigation;
+
 
 import java.util.List;
 
@@ -73,8 +75,8 @@ public class WorkoutDetailFragment extends Fragment {
             public void onClick(View v) {
                 if (currentWorkout != null) {
                     workoutViewModel.delete(currentWorkout);  // Delete the current Workout
-                    if (getActivity() != null) {
-                        getActivity().getSupportFragmentManager().popBackStack();
+                    if (getView() != null) {
+                        Navigation.findNavController(getView()).navigateUp();
                     }
                 }
             }
@@ -143,8 +145,8 @@ public class WorkoutDetailFragment extends Fragment {
             }
         }
         workoutViewModel.update(currentWorkout);
-        if (getActivity() != null) {
-            getActivity().getSupportFragmentManager().popBackStack();
+        if (getView() != null) {
+            Navigation.findNavController(getView()).navigateUp();
         }
     }
 

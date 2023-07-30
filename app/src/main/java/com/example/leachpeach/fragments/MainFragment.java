@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,12 +63,10 @@ public class MainFragment extends Fragment {
         addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateWorkoutFragment createWorkoutFragment = new CreateWorkoutFragment();
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, createWorkoutFragment);
-                transaction.addToBackStack(null);  // if you want to allow 'back' to the MainFragment
-                transaction.commit();
+                NavController navController = NavHostFragment.findNavController(MainFragment.this);
+                navController.navigate(R.id.action_mainFragment_to_createWorkoutFragment);
             }
         });
+
     }
 }

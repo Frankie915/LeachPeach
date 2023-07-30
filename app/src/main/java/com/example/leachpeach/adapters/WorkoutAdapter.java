@@ -1,5 +1,6 @@
 package com.example.leachpeach.adapters;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.leachpeach.R;
@@ -35,16 +38,15 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WorkoutDetailFragment workoutDetailFragment = new WorkoutDetailFragment();
                 Bundle bundle = new Bundle();
                 bundle.putInt("workoutId", currentWorkout.getId());
-                workoutDetailFragment.setArguments(bundle);
-                FragmentTransaction transaction = ((FragmentActivity) v.getContext()).getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, workoutDetailFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+
+                // Use Navigation Component to navigate to WorkoutDetailFragment
+                NavController navController = Navigation.findNavController((Activity) v.getContext(), R.id.fragment_container);
+                navController.navigate(R.id.action_mainFragment_to_workoutDetailFragment, bundle);
             }
         });
+
 
     }
 

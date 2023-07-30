@@ -19,7 +19,7 @@ import com.example.leachpeach.util.DateConverter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Workout.class, Exercise.class}, version = 1)
+@Database(entities = {Workout.class, Exercise.class}, version = 2)
 @TypeConverters({DataConverter.class, DateConverter.class})
 public abstract class WorkoutDatabase extends RoomDatabase {
 
@@ -38,7 +38,7 @@ public abstract class WorkoutDatabase extends RoomDatabase {
             synchronized (WorkoutDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                                    WorkoutDatabase.class, "WorkoutDatabase2.db")
+                                    WorkoutDatabase.class, "WorkoutDatabase3.db")
                             .build();
                 }
             }

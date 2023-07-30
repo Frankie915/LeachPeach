@@ -44,7 +44,7 @@ public class ExerciseDetailAdapter extends RecyclerView.Adapter<ExerciseDetailAd
         notifyDataSetChanged();
     }
 
-    class ExerciseDetailHolder extends RecyclerView.ViewHolder {
+    public class ExerciseDetailHolder extends RecyclerView.ViewHolder {
         public EditText editTextName;
         public EditText editTextWeight;
         public EditText editTextSets;

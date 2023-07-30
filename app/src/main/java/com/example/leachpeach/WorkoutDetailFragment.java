@@ -155,8 +155,9 @@ public class WorkoutDetailFragment extends Fragment {
 
         Exercise exercise = new Exercise(name, weight, sets, reps);
         currentWorkout.getExercises().add(exercise);
-
-        workoutViewModel.insertExercise(exercise);
+        exercise.setWorkoutId(mWorkoutId);
+        exerciseViewModel.addExercise(exercise);
+        //workoutViewModel.insertExercise(exercise);
         adapter.setExercises(currentWorkout.getExercises());
 
         newExerciseName.setText("");

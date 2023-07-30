@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +22,16 @@ import com.example.leachpeach.viewmodel.MyViewModelFactory;
 import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
+import com.example.leachpeach.viewmodel.ExerciseViewModel;
 import com.example.leachpeach.viewmodel.WorkoutViewModel;
+
+import java.util.List;
 
 public class WorkoutDetailFragment extends Fragment {
     private WorkoutViewModel workoutViewModel;
+
+    private List<Exercise> mExerciseList;
+    private ExerciseViewModel exerciseViewModel;
     private Button saveChangesButton;
     private ExerciseDetailAdapter adapter;
     private TextView workoutNameTextView;
@@ -37,6 +44,8 @@ public class WorkoutDetailFragment extends Fragment {
     private EditText newExerciseSets;
     private EditText newExerciseReps;
     private Button addExerciseButton;
+
+    private long mWorkoutId;
 
     @Nullable
     @Override
@@ -94,7 +103,10 @@ public class WorkoutDetailFragment extends Fragment {
         // Get workout ID from arguments and display workout details
         if (getArguments() != null) {
             int workoutId = getArguments().getInt("workoutId");
+            mWorkoutId = (long)workoutId;
             workoutViewModel = new ViewModelProvider(requireActivity(), new MyViewModelFactory(requireActivity().getApplication())).get(WorkoutViewModel.class);
+            exerciseViewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
+
             workoutViewModel.getWorkout(workoutId).observe(getViewLifecycleOwner(), new Observer<Workout>() {
                 @Override
                 public void onChanged(Workout workout) {
@@ -107,11 +119,16 @@ public class WorkoutDetailFragment extends Fragment {
                 }
             });
         }
+
+
     }
 
     private void displayWorkout(Workout workout) {
         workoutNameTextView.setText(workout.getName());
         adapter.setExercises(workout.getExercises());
+
+
+
     }
 
     private void saveChanges() {
@@ -137,8 +154,13 @@ public class WorkoutDetailFragment extends Fragment {
         int sets = Integer.parseInt(newExerciseSets.getText().toString());
         int reps = Integer.parseInt(newExerciseReps.getText().toString());
 
+
+
         Exercise exercise = new Exercise(name, weight, sets, reps);
         currentWorkout.getExercises().add(exercise);
+        exercise.setWorkoutId(mWorkoutId);
+        exerciseViewModel.addExercise(exercise);
+        //workoutViewModel.insertExercise(exercise);
         adapter.setExercises(currentWorkout.getExercises());
 
         newExerciseName.setText("");

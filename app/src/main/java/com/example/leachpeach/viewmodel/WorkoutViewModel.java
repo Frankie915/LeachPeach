@@ -5,8 +5,11 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.example.leachpeach.database.WorkoutDatabase;
+import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
 import com.example.leachpeach.repository.WorkoutRepository;
 
@@ -17,13 +20,13 @@ public class WorkoutViewModel extends AndroidViewModel {
     private WorkoutRepository repository;
     private LiveData<List<Workout>> allWorkouts;
 
+    private final MutableLiveData<Long> mWorkoutIdLiveData = new MutableLiveData<>();
+
     public WorkoutViewModel(@NonNull Application application) {
         super(application);
-        WorkoutDatabase db = WorkoutDatabase.getInstance(application);
-        repository = new WorkoutRepository(db);
+        repository = WorkoutRepository.getInstance(application.getApplicationContext());
         allWorkouts = repository.getAllWorkouts();
     }
-
 
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;
@@ -46,4 +49,6 @@ public class WorkoutViewModel extends AndroidViewModel {
     public void delete(Workout workout) {
         repository.delete(workout);
     }
+
+    public void insertExercise(Exercise exercise) {repository.addExercise(exercise);}
 }

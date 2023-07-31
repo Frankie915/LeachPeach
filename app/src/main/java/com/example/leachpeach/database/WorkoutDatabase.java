@@ -43,7 +43,6 @@ public abstract class WorkoutDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     WorkoutDatabase.class, "WorkoutDatabase.db")
-                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

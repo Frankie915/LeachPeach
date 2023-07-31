@@ -55,6 +55,7 @@ public class WorkoutRepository {
 
         WorkoutDatabase database = Room.databaseBuilder(context, WorkoutDatabase.class, DATABASE_NAME)
                 .addCallback(databaseCallback)
+                .fallbackToDestructiveMigration()
                 .build();
 
         exerciseDao = database.exerciseDao();

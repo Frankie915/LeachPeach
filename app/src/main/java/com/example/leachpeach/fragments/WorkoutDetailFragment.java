@@ -1,16 +1,19 @@
 package com.example.leachpeach.fragments;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,10 +24,16 @@ import com.example.leachpeach.viewmodel.MyViewModelFactory;
 import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
+import com.example.leachpeach.viewmodel.ExerciseViewModel;
 import com.example.leachpeach.viewmodel.WorkoutViewModel;
+
+import java.util.List;
 
 public class WorkoutDetailFragment extends Fragment {
     private WorkoutViewModel workoutViewModel;
+
+    private List<Exercise> mExerciseList;
+    private ExerciseViewModel exerciseViewModel;
     private Button saveChangesButton;
     private ExerciseDetailAdapter adapter;
     private TextView workoutNameTextView;
@@ -37,6 +46,8 @@ public class WorkoutDetailFragment extends Fragment {
     private EditText newExerciseSets;
     private EditText newExerciseReps;
     private Button addExerciseButton;
+
+    private long mWorkoutId;
 
     @Nullable
     @Override
@@ -94,7 +105,10 @@ public class WorkoutDetailFragment extends Fragment {
         // Get workout ID from arguments and display workout details
         if (getArguments() != null) {
             int workoutId = getArguments().getInt("workoutId");
+            mWorkoutId = (long)workoutId;
             workoutViewModel = new ViewModelProvider(requireActivity(), new MyViewModelFactory(requireActivity().getApplication())).get(WorkoutViewModel.class);
+            exerciseViewModel = new ViewModelProvider(this).get(ExerciseViewModel.class);
+
             workoutViewModel.getWorkout(workoutId).observe(getViewLifecycleOwner(), new Observer<Workout>() {
                 @Override
                 public void onChanged(Workout workout) {
@@ -107,11 +121,16 @@ public class WorkoutDetailFragment extends Fragment {
                 }
             });
         }
+
+
     }
 
     private void displayWorkout(Workout workout) {
         workoutNameTextView.setText(workout.getName());
         adapter.setExercises(workout.getExercises());
+
+
+
     }
 
     private void saveChanges() {
@@ -132,13 +151,25 @@ public class WorkoutDetailFragment extends Fragment {
     }
 
     private void addExercise() {
-        String name = newExerciseName.getText().toString();
-        int weight = Integer.parseInt(newExerciseWeight.getText().toString());
-        int sets = Integer.parseInt(newExerciseSets.getText().toString());
-        int reps = Integer.parseInt(newExerciseReps.getText().toString());
+        String name = newExerciseName.getText().toString().trim();
+        String weightStr = newExerciseWeight.getText().toString().trim();
+        String setsStr = newExerciseSets.getText().toString().trim();
+        String repsStr = newExerciseReps.getText().toString().trim();
+
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(weightStr) || TextUtils.isEmpty(setsStr) || TextUtils.isEmpty(repsStr)) {
+            Toast.makeText(getActivity(), "Please complete all fields for exercise", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int weight = Integer.parseInt(weightStr);
+        int sets = Integer.parseInt(setsStr);
+        int reps = Integer.parseInt(repsStr);
 
         Exercise exercise = new Exercise(name, weight, sets, reps);
         currentWorkout.getExercises().add(exercise);
+        exercise.setWorkoutId(mWorkoutId);
+        exerciseViewModel.addExercise(exercise);
+        //workoutViewModel.insertExercise(exercise);
         adapter.setExercises(currentWorkout.getExercises());
 
         newExerciseName.setText("");

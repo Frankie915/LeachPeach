@@ -41,3 +41,5 @@ For the layout files:
     workout_item.xml: This layout file defines the look of each item in the workout list.
 
 In summary, the app is based on the MVVM (Model-View-ViewModel) architecture. The model consists of the Exercise and Workout entities, the WorkoutRepository, and the DAOs. The views are the various Fragments and their corresponding layout files, and the viewmodels are WorkoutViewModel. The adapters handle displaying lists of entities, and the converter classes ensure that complex data types can be stored in the SQLite database.
+
+testing github bot

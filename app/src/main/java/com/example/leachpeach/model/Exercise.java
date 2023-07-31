@@ -1,16 +1,20 @@
 package com.example.leachpeach.model;
 
+import static androidx.room.ForeignKey.CASCADE;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "exercise_table")
+@Entity(tableName = "exercise_table", foreignKeys = @ForeignKey(entity = Workout.class, parentColumns = "id",
+        childColumns = "workout_id", onDelete = CASCADE))
 public class Exercise implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long id;
 
     public void setName(String name) {
         this.name = name;
@@ -43,11 +47,11 @@ public class Exercise implements Serializable {
         this.sets = sets;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

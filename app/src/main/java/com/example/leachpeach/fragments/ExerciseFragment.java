@@ -38,21 +38,27 @@ public class ExerciseFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
+        System.out.println("Before initalization");
         exerciseViewModel = new ViewModelProvider(requireActivity(), new MyViewModelFactory(requireActivity().getApplication())).get(ExerciseViewModel.class);
+        System.out.println("After intialization");
+        System.out.println("exerciseViewModel.getAllExercises is null");
+        System.out.println(exerciseViewModel.getAllExercises() == null);
         exerciseDetailAdapter = new ExerciseDetailAdapter();
         recyclerView.setAdapter(exerciseDetailAdapter);
-
+        System.out.println("Leaving onCreateView");
         return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        System.out.println("About to crash...");
         exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
                 exerciseDetailAdapter.setExercises(exercises);
             }
         });
+        System.out.println("Didnt crash :D");
     }
 }
 

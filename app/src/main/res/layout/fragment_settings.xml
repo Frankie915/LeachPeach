@@ -16,4 +16,23 @@
 
     <!-- Add more UI elements here -->
 
+    <TextView
+        android:id="@+id/theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:textSize="20sp"
+        android:text="Dark theme"
+        android:layout_below="@id/settings_header" />
+
+    <Switch
+        android:id="@+id/switch_theme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/theme"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="40dp"
+        android:thumbTint="@color/switch_track_selector" />
+
 </RelativeLayout>

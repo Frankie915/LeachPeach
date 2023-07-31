@@ -16,5 +16,7 @@
     <color name="green_int3">#83D475</color>
     <color name="green_int2">#ABE098</color>
     <color name="green_int1">#C5E8B7</color>
+    <color name="customSwitchTrackColorOn">#EF6351</color>
+    <color name="customSwitchTrackColorOff">#D0D0D0</color>
 
 </resources>

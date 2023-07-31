@@ -6,9 +6,9 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.leachpeach.fragments.MainFragment"
+        android:name="com.example.leachpeach.fragments.WorkoutFragment"
         android:label="main_fragment"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_workout" >
 
         <action
             android:id="@+id/action_mainFragment_to_createWorkoutFragment"

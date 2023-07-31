@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -25,7 +24,7 @@ import com.example.leachpeach.viewmodel.WorkoutViewModel;
 
 import java.util.List;
 
-public class MainFragment extends Fragment {
+public class WorkoutFragment extends Fragment {
 
     private WorkoutViewModel workoutViewModel;
     private WorkoutAdapter workoutAdapter;
@@ -33,7 +32,7 @@ public class MainFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_workout, container, false);
     }
 
     @Override
@@ -63,7 +62,7 @@ public class MainFragment extends Fragment {
         addWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavController navController = NavHostFragment.findNavController(MainFragment.this);
+                NavController navController = NavHostFragment.findNavController(WorkoutFragment.this);
                 navController.navigate(R.id.action_mainFragment_to_createWorkoutFragment);
             }
         });

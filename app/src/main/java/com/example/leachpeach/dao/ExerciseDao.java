@@ -26,8 +26,11 @@ public interface ExerciseDao {
     @Query("DELETE FROM exercise_table")
     void deleteAllExercises();
 
-    @Query("SELECT * FROM exercise_table ORDER BY id DESC")
+    @Query("SELECT * FROM exercise_table ORDER BY name")
     LiveData<List<Exercise>> getAllExercises();
+
+    @Query("SELECT distinct * FROM exercise_table GROUP BY name ORDER BY name DESC")
+    LiveData<List<Exercise>> getExerciseSet();
 
     @Query("SELECT * FROM exercise_table WHERE workout_id = :workoutId")
     LiveData<List<Exercise>> getExercisesOfWorkout(long workoutId);

@@ -4,5 +4,5 @@
     <string name="save_workout">save workout</string>
     <string name="add_workout">add workout</string>
     <string name="delete_workout">Delete Workout</string>
-    <string name="exercises">Exercises</string>
+    <string name="exercises">My Exercises</string>
 </resources>

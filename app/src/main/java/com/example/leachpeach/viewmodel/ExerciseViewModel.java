@@ -30,16 +30,10 @@ public class ExerciseViewModel extends AndroidViewModel {
     public ExerciseViewModel(@NonNull Application application) {
 
         super(application);
-        System.out.println("In exerciseViewModel");
         WorkoutDatabase db = WorkoutDatabase.getInstance(application);
         mWorkoutRepo = WorkoutRepository.getInstance(application.getApplicationContext());
-        System.out.println("mWorkoutRepo is null");
-        System.out.println(mWorkoutRepo == null);
         allExercises = mWorkoutRepo.getAllExercises();
-        System.out.println("allExercises is null");
-        System.out.println(allExercises == null);
         exerciseSet = mWorkoutRepo.getExerciseSet();
-        System.out.println("Leaving ExerciseViewModel");
     }
 
     public void addExercise(Exercise exercise) { mWorkoutRepo.addExercise(exercise);}

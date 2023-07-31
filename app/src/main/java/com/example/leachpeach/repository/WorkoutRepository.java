@@ -58,10 +58,7 @@ public class WorkoutRepository {
         completionDao = database.completionDao();
         allWorkouts = workoutDao.getAllWorkouts();
         allExercises = exerciseDao.getAllExercises();
-        System.out.println("allExercises is null");
-        System.out.println(allExercises == null);
         //exerciseSet = exerciseDao.getExerciseSet();
-        System.out.println("Leaving WorkoutRepository");
     }
 
     public static WorkoutRepository getInstance(Context context) {

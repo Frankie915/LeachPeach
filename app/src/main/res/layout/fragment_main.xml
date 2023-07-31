@@ -29,5 +29,7 @@
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_workout"
-        android:src="@android:drawable/ic_input_add" />
+        android:src="@android:drawable/ic_input_add"
+        android:backgroundTint="@color/background_green"/>
+
 </RelativeLayout>

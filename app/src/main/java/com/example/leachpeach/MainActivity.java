@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import android.util.Log;
 
+import com.example.leachpeach.fragments.ExerciseFragment;
 import com.example.leachpeach.fragments.MainFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

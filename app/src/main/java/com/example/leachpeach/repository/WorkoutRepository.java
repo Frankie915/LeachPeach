@@ -27,24 +27,19 @@ public class WorkoutRepository {
     private static final String DATABASE_NAME = "WorkoutDatabase.db";
     private WorkoutDao workoutDao;
     private ExerciseDao exerciseDao;
-
     private CompletionDao completionDao;
 
     private static WorkoutRepository mWorkoutRepo;
     private LiveData<List<Workout>> allWorkouts;
+    private LiveData<List<Exercise>> allExercises;
+    private LiveData<List<Exercise>> exerciseSet;
 
     private static final int NUMBER_OF_THREADS = 4;
     public static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-/*
-    public WorkoutRepository(WorkoutDatabase db) {
-        workoutDao = db.workoutDao();
-        exerciseDao = db.exerciseDao();
-        allWorkouts = workoutDao.getAllWorkouts();
-    }
-*/
-    private WorkoutRepository(Context context) {
 
+    private WorkoutRepository(Context context) {
+        System.out.println("In WorkoutRepository");
         RoomDatabase.Callback databaseCallback = new RoomDatabase.Callback() {
             @Override
             public void onCreate(@NonNull SupportSQLiteDatabase db) {
@@ -62,6 +57,11 @@ public class WorkoutRepository {
         workoutDao = database.workoutDao();
         completionDao = database.completionDao();
         allWorkouts = workoutDao.getAllWorkouts();
+        allExercises = exerciseDao.getAllExercises();
+        System.out.println("allExercises is null");
+        System.out.println(allExercises == null);
+        //exerciseSet = exerciseDao.getExerciseSet();
+        System.out.println("Leaving WorkoutRepository");
     }
 
     public static WorkoutRepository getInstance(Context context) {
@@ -75,7 +75,9 @@ public class WorkoutRepository {
     public LiveData<List<Workout>> getAllWorkouts() {
         return allWorkouts;
     }
+    public LiveData<List<Exercise>> getAllExercises() { return allExercises; }
 
+    public LiveData<List<Exercise>> getExerciseSet() { return exerciseSet; }
     public void insert(Workout workout) {
         databaseWriteExecutor.execute(() -> {
             long workoutId = workoutDao.insert(workout);
@@ -117,6 +119,8 @@ public class WorkoutRepository {
     public LiveData<Workout> getWorkout(int id) {
         return workoutDao.getWorkout(id);
     }
+
+    public LiveData<Exercise> getExercise(int id) { return exerciseDao.getExercise(id); }
 
     public LiveData<List<Exercise>> getExercises(long workoutId) {
         return exerciseDao.getExercises(workoutId);

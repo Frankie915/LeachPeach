@@ -12,10 +12,7 @@
         app:title="@string/pref_title_workout_order"
         app:useSimpleSummaryProvider="true" />
 
-    <EditTextPreference
-        app:key="default_question"
-        app:title="@string/pref_title_default_question"
-        app:useSimpleSummaryProvider="true" /><PreferenceCategory
+    <PreferenceCategory
     app:title="@string/messages_header">
 
     <EditTextPreference

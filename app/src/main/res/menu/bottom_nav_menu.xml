@@ -2,7 +2,12 @@
     <item
         android:id="@+id/mainFragment"
         android:icon="@drawable/ic_workout"
-        android:title="Home" />
+        android:title="Workouts" />
+
+    <item
+        android:id="@+id/exerciseFragment"
+        android:icon="@drawable/ic_run"
+        android:title="Exercises" />
 
     <item
         android:id="@+id/progressFragment"

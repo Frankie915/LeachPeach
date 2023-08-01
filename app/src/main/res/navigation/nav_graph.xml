@@ -19,6 +19,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.example.leachpeach.fragments.ExerciseFragment"
+        android:label="exercise_fragment"
+        tools:layout="@layout/fragment_exercise" />
+
+    <fragment
         android:id="@+id/createWorkoutFragment"
         android:name="com.example.leachpeach.fragments.CreateWorkoutFragment"
         android:label="create_workout_fragment"

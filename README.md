@@ -1,67 +1,14 @@
-CRUD operations for workouts and exercises:
+Title: Leach Peach: A Comprehensive Mobile Workout Tracker Application
 
-    ExerciseDao and WorkoutDao are Data Access Object (DAO) interfaces that define methods for accessing the Exercise and Workout data in the SQLite database.
+Abstract:
 
-    Exercise and Workout are Entity classes that represent the data structure for a workout and an exercise respectively in your app.
+Maintaining physical fitness is a pivotal element in achieving a healthy lifestyle. It requires dedication, regular practice, and consistent tracking. This paper introduces Leach Peach, an innovative mobile application designed to support users in managing their exercise routines, thus providing a systematic and effective way to attain fitness goals.
 
-    WorkoutRepository is a repository class that acts as an abstraction layer between the different data sources (e.g., SQLite database) and the rest of the app. It uses the DAOs to access the data.
+Leach Peach is a versatile workout tracker application that implements Create, Read, Update, and Delete (CRUD) operations, ensuring a smooth workout management experience for its users. The application facilitates users to create custom workout routines by aggregating a variety of exercises into a single, manageable list. This list can be modified or entirely revised based on the users' evolving fitness needs or preferences, making Leach Peach a flexible tool in maintaining a diversified exercise schedule.
 
-    DataConverter and DateConverter are utility classes used to convert complex data types (like lists and dates) into a format that can be stored in SQLite.
+In addition, Leach Peach comes with a feature that allows users to mark their workouts as completed, along with recording the date of completion. This not only allows users to track their progression over time, but also serves as a motivational instrument by providing a sense of accomplishment after each completed workout.
 
-    WorkoutViewModel is a ViewModel that provides data for the UI and survives configuration changes (like rotations). It uses WorkoutRepository to get and save data, ensuring that data operations are done off the main thread.
-
-    CreateWorkoutFragment is a Fragment where users can create a new workout. It includes a form for entering the workout's details and a list (RecyclerView) of exercises.
-
-    ExerciseAdapter and ExerciseDetailAdapter are Adapter classes used for populating RecyclerViews in CreateWorkoutFragment and WorkoutDetailFragment respectively. Each adapter is associated with a list of exercises.
-
-    MainActivity is the main activity that hosts all the fragments.
-
-    MainFragment is the first screen that users see. It displays a list of all workouts.
-
-    MyViewModelFactory is a factory class needed to pass your WorkoutRepository to your WorkoutViewModel.
-
-    WorkoutAdapter and WorkoutDetailAdapter are Adapter classes used for populating RecyclerViews in MainFragment and WorkoutDetailFragment respectively. Each adapter is associated with a list of workouts.
-
-    WorkoutDetailFragment is a Fragment that displays the details of a workout, including its associated exercises.
-
-For the layout files:
-
-    activity_main.xml: This layout file is for the MainActivity and typically hosts the Fragment(s).
-
-    exercise_detail_item.xml: This layout file defines the look of each item in the exercise detail list.
-
-    exercise_item.xml: This layout file defines the look of each item in the exercise list when creating a workout.
-
-    fragment_create_workout.xml: This layout file is for the CreateWorkoutFragment and contains fields for entering workout details and a RecyclerView for the list of exercises.
-
-    fragment_main.xml: This layout file is for the MainFragment and contains a RecyclerView for the list of workouts.
-
-    workout_detail_fragment.xml: This layout file is for the WorkoutDetailFragment and contains fields for displaying workout details and a RecyclerView for the list of exercises.
-
-    workout_item.xml: This layout file defines the look of each item in the workout list.
-
-In summary, the app is based on the MVVM (Model-View-ViewModel) architecture. The model consists of the Exercise and Workout entities, the WorkoutRepository, and the DAOs. The views are the various Fragments and their corresponding layout files, and the viewmodels are WorkoutViewModel. The adapters handle displaying lists of entities, and the converter classes ensure that complex data types can be stored in the SQLite database.
-
-Sources: 
-zybook textbook assigned to this class:
-
-
-Figure 5.6.2: list_item_band.xml.
-
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-   xmlns:tools="http://schemas.android.com/tools"
-   android:orientation="vertical"
-   android:layout_width="match_parent"
-   android:layout_height="wrap_content">
-
-   <TextView
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:id="@+id/band_name"
-      tools:text="band"
-      style="@style/bandListName">
-   </TextView>
+In conclusion, Leach Peach aspires to transform the fitness journey of its users by offering an intuitive platform to effectively manage and monitor workouts. By maintaining a log of completed workouts, it gives users a measurable view of their progress, making fitness goals more transparent and achievable. Future enhancements could potentially include features like goal setting, fitness reminders, and interoperability with other health and wellness applications, thereby expanding Leach Peach's functionality and reach within the digital fitness domain.
 
 
 

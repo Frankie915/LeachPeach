@@ -10,7 +10,8 @@ In addition, Leach Peach comes with a feature that allows users to mark their wo
 
 In conclusion, Leach Peach aspires to transform the fitness journey of its users by offering an intuitive platform to effectively manage and monitor workouts. By maintaining a log of completed workouts, it gives users a measurable view of their progress, making fitness goals more transparent and achievable. Future enhancements could potentially include features like goal setting, fitness reminders, and interoperability with other health and wellness applications, thereby expanding Leach Peach's functionality and reach within the digital fitness domain.
 
-
+SOURCES:
+zybook textbook:
 
 Figure 5.6.4: Updated ListFragment.java.
 

@@ -1,6 +1,7 @@
 package com.example.leachpeach.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
@@ -18,6 +19,8 @@ public class Workout implements Serializable {
     private int id;
     private String name;
 
+    @ColumnInfo(name = "updated")
+    private long mUpdateTime;
     @TypeConverters(DateConverter.class)
     private Date date;
 
@@ -27,6 +30,7 @@ public class Workout implements Serializable {
         this.name = name;
         this.date = date;
         this.exercises = exercises;
+        mUpdateTime = System.currentTimeMillis();
     }
 
     public int getId() {
@@ -41,6 +45,13 @@ public class Workout implements Serializable {
         return name;
     }
 
+    public long getUpdateTime() {
+        return mUpdateTime;
+    }
+
+    public void setUpdateTime(long updateTime) {
+        mUpdateTime = updateTime;
+    }
     public Date getDate() {
         return date;
     }

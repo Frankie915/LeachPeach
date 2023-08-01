@@ -1,5 +1,8 @@
 package com.example.leachpeach.fragments;
 
+import android.content.SharedPreferences;
+import androidx.preference.PreferenceManager;
+import java.util.Comparator;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +50,9 @@ public class WorkoutFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
+        workoutAdapter.setSortOrder(getSettingsSortOrder());
         recyclerView.setAdapter(workoutAdapter);
+
 
         // Observe workouts LiveData
         workoutViewModel.getAllWorkouts().observe(getViewLifecycleOwner(), new Observer<List<Workout>>() {
@@ -55,6 +60,7 @@ public class WorkoutFragment extends Fragment {
             public void onChanged(List<Workout> workouts) {
                 workoutAdapter.setWorkouts(workouts);
             }
+
         });
 
         // Handle FloatingActionButton click
@@ -68,4 +74,27 @@ public class WorkoutFragment extends Fragment {
         });
 
     }
+
+@Override
+    public void onResume() {
+        super.onResume();
+    workoutAdapter.setSortOrder(getSettingsSortOrder());
+}
+
+    public enum WorkoutSortOrder {
+        ALPHABETIC, NEW_FIRST, OLD_FIRST
+    }
+
+    private WorkoutSortOrder getSettingsSortOrder() {
+
+        // Set sort order from settings
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(requireContext());
+        String sortOrderPref = sharedPrefs.getString("workout_order", "alpha");
+        switch (sortOrderPref) {
+            case "alpha": return WorkoutSortOrder.ALPHABETIC;
+            case "new_first": return WorkoutSortOrder.NEW_FIRST;
+            default: return WorkoutSortOrder.OLD_FIRST;
+        }
+    }
+
 }

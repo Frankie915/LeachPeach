@@ -51,5 +51,6 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.leachpeach.fragments.SettingsFragment"
         android:label="settings_fragment"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings"
+        />
 </navigation>

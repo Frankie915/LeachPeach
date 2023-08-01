@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.leachpeach.R;
 import com.example.leachpeach.fragments.WorkoutDetailFragment;
 import com.example.leachpeach.model.Workout;
-
+import com.example.leachpeach.fragments.WorkoutFragment;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import android.content.SharedPreferences;
+import androidx.preference.PreferenceManager;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
     private List<Workout> workouts = new ArrayList<>();
@@ -48,6 +51,19 @@ public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutV
         });
 
 
+    }
+
+    public void setSortOrder(WorkoutFragment.WorkoutSortOrder sortOrder) {
+        switch (sortOrder) {
+            case ALPHABETIC:
+                workouts.sort(Comparator.comparing(Workout::getName));
+                break;
+            case NEW_FIRST:
+                workouts.sort(Comparator.comparing(Workout::getUpdateTime).reversed());
+                break;
+            default:
+                workouts.sort(Comparator.comparing(Workout::getUpdateTime));
+        }
     }
 
     @Override

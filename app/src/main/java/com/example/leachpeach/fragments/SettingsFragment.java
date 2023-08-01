@@ -19,8 +19,30 @@ import androidx.preference.SwitchPreferenceCompat;
 
 import com.example.leachpeach.R;
 
-public class SettingsFragment extends Fragment {
 
+
+public class SettingsFragment extends PreferenceFragmentCompat {
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            // Load the preferences from the XML resource (root_preferences.xml)
+            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+
+            SwitchPreferenceCompat themePref = findPreference("dark_theme");
+            if (themePref != null) {
+                themePref.setOnPreferenceChangeListener((preference, newValue) -> {
+
+                    // Turn on or off night mode
+                    if ((Boolean) newValue) {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    } else {
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+
+                    return true;
+                });
+            }
+        }
+/*
     private static final String PREFS_NAME = "PrefsFile";
     private Switch mThemeButton;
     @Nullable
@@ -49,4 +71,6 @@ public class SettingsFragment extends Fragment {
         });
 
     }
+    /*
+ */
 }

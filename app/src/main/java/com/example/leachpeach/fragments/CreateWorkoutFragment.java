@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.leachpeach.adapters.ExerciseAdapter;
+import com.example.leachpeach.adapters.ExerciseEditAdapter;
 import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.model.Workout;
@@ -39,7 +39,7 @@ public class CreateWorkoutFragment extends Fragment {
     private EditText newExerciseReps;
     private Button addExerciseButton;
     private Button buttonSaveWorkout;
-    private ExerciseAdapter adapter;
+    private ExerciseEditAdapter adapter;
 
     @Nullable
     @Override
@@ -58,7 +58,7 @@ public class CreateWorkoutFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new ExerciseAdapter();
+        adapter = new ExerciseEditAdapter();
         recyclerView.setAdapter(adapter);
 
         addExerciseButton.setOnClickListener(new View.OnClickListener() {

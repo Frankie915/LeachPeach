@@ -40,7 +40,7 @@
         android:id="@+id/workoutDetailFragment"
         android:name="com.example.leachpeach.fragments.WorkoutDetailFragment"
         android:label="WorkoutDetailFragment"
-        tools:layout="@layout/workout_detail_fragment">
+        tools:layout="@layout/fragment_workout_detail">
 
         <argument
             android:name="workoutId"

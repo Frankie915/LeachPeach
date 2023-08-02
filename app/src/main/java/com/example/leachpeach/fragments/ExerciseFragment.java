@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.leachpeach.R;
-import com.example.leachpeach.adapters.ExerciseDetailAdapter;
+import com.example.leachpeach.adapters.ExerciseViewAdapter;
 import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.viewmodel.ExerciseViewModel;
 import com.example.leachpeach.viewmodel.MyViewModelFactory;
@@ -25,7 +25,7 @@ import java.util.List;
 public class ExerciseFragment extends Fragment {
 
     private ExerciseViewModel exerciseViewModel;
-    private ExerciseDetailAdapter exerciseDetailAdapter;
+    private ExerciseViewAdapter exerciseViewAdapter;
     private RecyclerView recyclerView;
 
     @Nullable
@@ -39,8 +39,8 @@ public class ExerciseFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         exerciseViewModel = new ViewModelProvider(requireActivity(), new MyViewModelFactory(requireActivity().getApplication())).get(ExerciseViewModel.class);
-        exerciseDetailAdapter = new ExerciseDetailAdapter();
-        recyclerView.setAdapter(exerciseDetailAdapter);
+        exerciseViewAdapter = new ExerciseViewAdapter();
+        recyclerView.setAdapter(exerciseViewAdapter);
 
         return view;
     }
@@ -50,7 +50,7 @@ public class ExerciseFragment extends Fragment {
         exerciseViewModel.getAllExercises().observe(getViewLifecycleOwner(), new Observer<List<Exercise>>() {
             @Override
             public void onChanged(List<Exercise> exercises) {
-                exerciseDetailAdapter.setExercises(exercises);
+                exerciseViewAdapter.setExercises(exercises);
             }
         });
     }

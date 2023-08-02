@@ -3,7 +3,7 @@ package com.example.leachpeach.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,17 +21,17 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_detail_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.exercise_view_item, parent, false);
         return new ExerciseViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
-        holder.editTextName.setText(currentExercise.getName());
-        holder.editTextWeight.setText(String.valueOf(currentExercise.getWeight()));
-        holder.editTextSets.setText(String.valueOf(currentExercise.getSets()));
-        holder.editTextReps.setText(String.valueOf(currentExercise.getReps()));
+        holder.textViewName.setText(currentExercise.getName());
+        holder.textViewWeight.setText(String.valueOf(currentExercise.getWeight()));
+        holder.textViewSets.setText(String.valueOf(currentExercise.getSets()));
+        holder.textViewReps.setText(String.valueOf(currentExercise.getReps()));
     }
 
     @Override
@@ -45,17 +45,17 @@ public class ExerciseViewAdapter extends RecyclerView.Adapter<ExerciseViewAdapte
     }
 
     public class ExerciseViewHolder extends RecyclerView.ViewHolder {
-        public EditText editTextName;
-        public EditText editTextWeight;
-        public EditText editTextSets;
-        public EditText editTextReps;
+        public TextView textViewName;
+        public TextView textViewWeight;
+        public TextView textViewSets;
+        public TextView textViewReps;
 
         public ExerciseViewHolder(View itemView) {
             super(itemView);
-            editTextName = itemView.findViewById(R.id.exercise_name);
-            editTextWeight = itemView.findViewById(R.id.exercise_weight);
-            editTextSets = itemView.findViewById(R.id.exercise_sets);
-            editTextReps = itemView.findViewById(R.id.exercise_reps);
+            textViewName = itemView.findViewById(R.id.exercise_name);
+            textViewWeight = itemView.findViewById(R.id.exercise_weight);
+            textViewSets = itemView.findViewById(R.id.exercise_sets);
+            textViewReps = itemView.findViewById(R.id.exercise_reps);
         }
     }
 }

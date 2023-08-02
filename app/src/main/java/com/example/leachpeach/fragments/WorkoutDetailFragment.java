@@ -13,13 +13,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.leachpeach.adapters.ExerciseDetailAdapter;
+import com.example.leachpeach.adapters.ExerciseViewAdapter;
 import com.example.leachpeach.viewmodel.MyViewModelFactory;
 import com.example.leachpeach.R;
 import com.example.leachpeach.model.Exercise;
@@ -37,7 +36,7 @@ public class WorkoutDetailFragment extends Fragment {
     private List<Exercise> mExerciseList;
     private ExerciseViewModel exerciseViewModel;
     private Button saveChangesButton;
-    private ExerciseDetailAdapter adapter;
+    private ExerciseViewAdapter adapter;
     private TextView workoutNameTextView;
     private RecyclerView recyclerView;
     private Button deleteWorkoutButton;
@@ -54,7 +53,7 @@ public class WorkoutDetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.workout_detail_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_workout_detail, container, false);
         saveChangesButton = view.findViewById(R.id.save_changes_button);
         saveChangesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +68,7 @@ public class WorkoutDetailFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new ExerciseDetailAdapter();
+        adapter = new ExerciseViewAdapter();
         recyclerView.setAdapter(adapter);
 
         deleteWorkoutButton.setOnClickListener(new View.OnClickListener() {  // Set the onClick listener
@@ -137,13 +136,13 @@ public class WorkoutDetailFragment extends Fragment {
 
     private void saveChanges() {
         for (int i = 0; i < adapter.getItemCount(); i++) {
-            ExerciseDetailAdapter.ExerciseDetailHolder holder = (ExerciseDetailAdapter.ExerciseDetailHolder) recyclerView.findViewHolderForAdapterPosition(i);
+            ExerciseViewAdapter.ExerciseViewHolder holder = (ExerciseViewAdapter.ExerciseViewHolder) recyclerView.findViewHolderForAdapterPosition(i);
             if (holder != null) {
                 Exercise exercise = currentWorkout.getExercises().get(i);
-                exercise.setName(holder.editTextName.getText().toString());
-                exercise.setWeight(Integer.parseInt(holder.editTextWeight.getText().toString()));
-                exercise.setSets(Integer.parseInt(holder.editTextSets.getText().toString()));
-                exercise.setReps(Integer.parseInt(holder.editTextReps.getText().toString()));
+                exercise.setName(holder.textViewName.getText().toString());
+                exercise.setWeight(Integer.parseInt(holder.textViewWeight.getText().toString()));
+                exercise.setSets(Integer.parseInt(holder.textViewSets.getText().toString()));
+                exercise.setReps(Integer.parseInt(holder.textViewReps.getText().toString()));
             }
         }
         workoutViewModel.update(currentWorkout);

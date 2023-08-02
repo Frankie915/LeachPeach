@@ -16,19 +16,19 @@ import com.example.leachpeach.model.Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
+public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapter.ExerciseEditTextHolder> {
     private List<Exercise> exercises = new ArrayList<>();
 
     @NonNull
     @Override
-    public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ExerciseEditTextHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.exercise_item, parent, false);
-        return new ExerciseViewHolder(itemView);
+        return new ExerciseEditTextHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ExerciseEditTextHolder holder, int position) {
         Exercise currentExercise = exercises.get(position);
         holder.editTextName.setText(currentExercise.getName());
         holder.editTextWeight.setText(String.valueOf(currentExercise.getWeight()));
@@ -100,13 +100,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         return exercises;
     }
 
-    public class ExerciseViewHolder extends RecyclerView.ViewHolder {
+    public class ExerciseEditTextHolder extends RecyclerView.ViewHolder {
         private EditText editTextName;
         private EditText editTextWeight;
         private EditText editTextReps;
         private EditText editTextSets;
 
-        public ExerciseViewHolder(View itemView) {
+        public ExerciseEditTextHolder(View itemView) {
             super(itemView);
             editTextName = itemView.findViewById(R.id.edit_text_exercise_name);
             editTextWeight = itemView.findViewById(R.id.edit_text_weight);

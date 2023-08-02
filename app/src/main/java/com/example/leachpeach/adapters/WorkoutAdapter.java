@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import android.content.SharedPreferences;
-import androidx.preference.PreferenceManager;
+//import androidx.preference.PreferenceManager;
 
 public class WorkoutAdapter extends RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder> {
     private List<Workout> workouts = new ArrayList<>();

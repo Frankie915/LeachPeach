@@ -5,31 +5,77 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <EditText
-        android:id="@+id/edit_text_exercise_name"
+    <!-- This LinearLayout represents the header row -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Exercise Name"/>
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/edit_text_weight"
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="Exercise" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Weight" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sets" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Reps" />
+    </LinearLayout>
+
+    <!-- This LinearLayout represents the input row -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Weight"
-        android:inputType="numberDecimal"/>
+        android:orientation="horizontal"
+        android:padding="8dp"
+        android:gravity="center_vertical">
 
-    <EditText
-        android:id="@+id/edit_text_reps"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Reps"
-        android:inputType="number"/>
+        <EditText
+            android:id="@+id/edit_text_exercise_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:hint="Exercise Name"
+            android:layout_marginTop="-10dp"/>
 
-    <EditText
-        android:id="@+id/edit_text_sets"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Sets"
-        android:inputType="number"/>
+        <EditText
+            android:id="@+id/edit_text_weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Weight"
+            android:inputType="numberDecimal"/>
 
+        <EditText
+            android:id="@+id/edit_text_sets"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Sets"
+            android:inputType="number"/>
+
+        <EditText
+            android:id="@+id/edit_text_reps"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Reps"
+            android:inputType="number"/>
+    </LinearLayout>
 </LinearLayout>

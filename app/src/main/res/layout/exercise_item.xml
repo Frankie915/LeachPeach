@@ -5,77 +5,81 @@
     android:orientation="vertical"
     android:padding="8dp">
 
-    <!-- This LinearLayout represents the header row -->
-    <LinearLayout
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:gravity="center_vertical">
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/exercise_name"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="Exercise" />
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="30dp"
+            android:text="Exercise"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/exercise_weight"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/exercise_name"
+            android:layout_toEndOf="@id/exercise_name"
+            android:layout_marginStart="80dp"
             android:text="Weight" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/exercise_sets"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/exercise_weight"
+            android:layout_toEndOf="@id/exercise_weight"
+            android:layout_marginStart="30dp"
             android:text="Sets" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/exercise_reps"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/exercise_sets"
+            android:layout_toEndOf="@id/exercise_sets"
+            android:layout_marginStart="30dp"
             android:text="Reps" />
-    </LinearLayout>
-
-    <!-- This LinearLayout represents the input row -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="8dp"
-        android:gravity="center_vertical">
 
         <EditText
             android:id="@+id/edit_text_exercise_name"
-            android:layout_width="0dp"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:hint="Exercise Name"
-            android:layout_marginTop="0dp"/>
+            android:layout_alignLeft="@id/exercise_name"
+            android:layout_marginTop="50dp"
+            android:hint="Exercise Name" />
 
         <EditText
             android:id="@+id/edit_text_weight"
-            android:layout_width="0dp"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/edit_text_exercise_name"
+            android:layout_toEndOf="@id/edit_text_exercise_name"
             android:hint="Weight"
             android:inputType="numberDecimal"/>
 
         <EditText
             android:id="@+id/edit_text_sets"
-            android:layout_width="0dp"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/edit_text_weight"
+            android:layout_toEndOf="@id/edit_text_weight"
             android:hint="Sets"
             android:inputType="number"/>
 
         <EditText
             android:id="@+id/edit_text_reps"
-            android:layout_width="0dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBaseline="@id/edit_text_sets"
+            android:layout_toEndOf="@id/edit_text_sets"
             android:hint="Reps"
             android:inputType="number"/>
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

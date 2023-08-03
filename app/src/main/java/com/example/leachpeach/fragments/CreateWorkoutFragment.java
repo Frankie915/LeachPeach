@@ -94,7 +94,7 @@ public class CreateWorkoutFragment extends Fragment {
         int sets = Integer.parseInt(setsStr);
         int reps = Integer.parseInt(repsStr);
 
-        Exercise exercise = new Exercise(name, weight, sets, reps);
+        Exercise exercise = new Exercise(name, weight, reps, sets);
         adapter.getExercises().add(exercise);
         adapter.notifyDataSetChanged();
 

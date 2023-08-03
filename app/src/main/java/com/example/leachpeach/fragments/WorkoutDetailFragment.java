@@ -166,7 +166,7 @@ public class WorkoutDetailFragment extends Fragment {
         int sets = Integer.parseInt(setsStr);
         int reps = Integer.parseInt(repsStr);
 
-        Exercise exercise = new Exercise(name, weight, sets, reps);
+        Exercise exercise = new Exercise(name, weight, reps, sets);
         currentWorkout.getExercises().add(exercise);
         exercise.setWorkoutId(mWorkoutId);
         exerciseViewModel.addExercise(exercise);

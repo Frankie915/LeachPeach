@@ -17,6 +17,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.leachpeach.model.Exercise;
 import com.example.leachpeach.viewmodel.MyViewModelFactory;
 import com.example.leachpeach.R;
 import com.example.leachpeach.adapters.WorkoutAdapter;
@@ -77,7 +78,8 @@ public class WorkoutFragment extends Fragment {
 
 @Override
     public void onResume() {
-        super.onResume();
+    super.onResume();
+
     workoutAdapter.setSortOrder(getSettingsSortOrder());
 }
 

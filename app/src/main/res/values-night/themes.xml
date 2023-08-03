@@ -3,10 +3,32 @@
     <style name="Base.Theme.LeachPeach" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-
+        <item name="colorPrimary">@color/peach_pink</item>
+        <item name="colorPrimaryVariant">@color/peach_pink</item>
     </style>
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/peach_int5</item>
     </style>
+
+    <style name="AppThemeNight" parent="Theme.AppCompat">
+        <!-- Other night theme attributes -->
+        <!-- ... -->
+
+            <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/peach_pink</item>
+        <item name="colorPrimaryVariant">@color/peach_pink</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="colorSecondary">@color/green_int5</item>
+        <item name="colorSecondaryVariant">@color/green_int3</item>
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+
+        <!-- Customize the bottom navigation bar text color -->
+        <item name="colorControlNormal">@color/bottom_nav_icon_color</item>
+        <item name="android:textColorSecondary">@color/bottom_nav_text_color</item>
+    </style>
+
 </resources>
 

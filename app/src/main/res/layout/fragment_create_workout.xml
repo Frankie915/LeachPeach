@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Weight"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
                 <EditText
                     android:id="@+id/new_exercise_sets"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Sets"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
                 <EditText
                     android:id="@+id/new_exercise_reps"
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="Reps"
-                    android:inputType="number" />
+                    android:inputType="text" />
 
                 <Button
                     android:id="@+id/button_add_exercise"

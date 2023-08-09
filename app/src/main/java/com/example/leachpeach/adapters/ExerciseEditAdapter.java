@@ -54,7 +54,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()) {
-                    currentExercise.setWeight((int) Float.parseFloat(s.toString()));
+                    currentExercise.setWeight(s.toString());
                 }
             }
         });
@@ -67,7 +67,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()) {
-                    currentExercise.setReps(Integer.parseInt(s.toString()));
+                    currentExercise.setReps(s.toString());
                 }
             }
         });
@@ -80,7 +80,7 @@ public class ExerciseEditAdapter extends RecyclerView.Adapter<ExerciseEditAdapte
             @Override
             public void afterTextChanged(Editable s) {
                 if (!s.toString().isEmpty()) {
-                    currentExercise.setSets(Integer.parseInt(s.toString()));
+                    currentExercise.setSets(s.toString());
                 }
             }
         });

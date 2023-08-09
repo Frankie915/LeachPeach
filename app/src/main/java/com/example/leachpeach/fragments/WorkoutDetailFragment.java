@@ -140,9 +140,9 @@ public class WorkoutDetailFragment extends Fragment {
             if (holder != null) {
                 Exercise exercise = currentWorkout.getExercises().get(i);
                 exercise.setName(holder.textViewName.getText().toString());
-                exercise.setWeight(Integer.parseInt(holder.textViewWeight.getText().toString()));
-                exercise.setSets(Integer.parseInt(holder.textViewSets.getText().toString()));
-                exercise.setReps(Integer.parseInt(holder.textViewReps.getText().toString()));
+                exercise.setWeight(holder.textViewWeight.getText().toString());
+                exercise.setSets(holder.textViewSets.getText().toString());
+                exercise.setReps(holder.textViewReps.getText().toString());
             }
         }
         workoutViewModel.update(currentWorkout);
@@ -162,11 +162,7 @@ public class WorkoutDetailFragment extends Fragment {
             return;
         }
 
-        int weight = Integer.parseInt(weightStr);
-        int sets = Integer.parseInt(setsStr);
-        int reps = Integer.parseInt(repsStr);
-
-        Exercise exercise = new Exercise(name, weight, reps, sets);
+        Exercise exercise = new Exercise(name, weightStr, repsStr, setsStr);
         currentWorkout.getExercises().add(exercise);
         exercise.setWorkoutId(mWorkoutId);
         exerciseViewModel.addExercise(exercise);

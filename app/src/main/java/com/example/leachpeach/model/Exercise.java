@@ -20,27 +20,27 @@ public class Exercise implements Serializable {
         this.name = name;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(String weight) {
         this.weight = weight;
     }
 
-    public void setReps(int reps) {
+    public void setReps(String reps) {
         this.reps = reps;
     }
 
-    public void setSets(int sets) {
+    public void setSets(String sets) {
         this.sets = sets;
     }
 
     private String name;
-    private int weight;
-    private int reps;
-    private int sets;
+    private String weight;
+    private String reps;
+    private String sets;
 
     @ColumnInfo(name = "workout_id")
     private long workoutId; // This field denotes the Workout that this Exercise belongs to
 
-    public Exercise(String name, int weight, int reps, int sets) {
+    public Exercise(String name, String weight, String reps, String sets) {
         this.name = name;
         this.weight = weight;
         this.reps = reps;
@@ -59,15 +59,15 @@ public class Exercise implements Serializable {
         return name;
     }
 
-    public int getWeight() {
+    public String getWeight() {
         return weight;
     }
 
-    public int getReps() {
+    public String getReps() {
         return reps;
     }
 
-    public int getSets() {
+    public String getSets() {
         return sets;
     }
 
